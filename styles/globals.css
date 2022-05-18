@@ -1,16 +1,21 @@
-html,
-body {
-  padding: 0;
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+a, li, .h1, h2, h3, h6, span {
+    font-family: 'Poppins', sans-serif !important;
+    color: lightslategray !important;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+.btn-lightgray {
+    background-color: #33334C !important;
 }
 
-* {
-  box-sizing: border-box;
+
+a .navicon {
+    -webkit-transition: 0.5s ease-out;
+    -moz-transition: 0.5s ease-out;
+    transition: 0.5s ease-out;
 }
+
+    a:hover .navicon {
+        -webkit-transform: rotateZ(360deg);
+        -moz-transform: rotateZ(360deg);
+        transform: rotateZ(360deg);
+    }
