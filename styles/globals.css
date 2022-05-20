@@ -19,3 +19,28 @@ a .navicon {
         -moz-transform: rotateZ(360deg);
         transform: rotateZ(360deg);
     }
+
+.card {
+    background-color: rgb(255,255,255, 0.05) !important;
+}
+.card:hover {
+        opacity: 0.5;
+    }
+
+.card-body {
+    background-color: rgb(34,35,57, 0.8) !important;
+}
+
+.carousel {
+    background-color: rgb(34,35,57) !important;
+}
+.fs-8{
+    font-size: 11px !important;
+}
+.active{
+    color: lightgreen !important;
+}
+
+.text-bright{
+    color: lightgreen !important;
+}

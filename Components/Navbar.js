@@ -22,15 +22,15 @@ const Navbar = () => {
                             <a className="nav-link  fw-semibold" href="#">
                                 <LocalAtmIcon className="navicon" fontSize="large" /> Cashout</a>
                         </li>
-                     
+
                         <li className="nav-item px-lg-3">
                             <a className="nav-link fw-semibold">
 
                                 <EmojiEventsIcon className="navicon" fontSize="large" />
-                                Leaderboard <span className="badge bg-success text-white opacity-100 fw-light">$500 Daily</span></a>
-                            </li>
-      </ul>
-                        <form className="d-flex" role="search">
+                                Leaderboard <span className="badge bg-success text-bright opacity-100 fw-light">$500 Daily</span></a>
+                        </li>
+                    </ul>
+                    <form className="d-flex" role="search">
                         <div className="dropdown">
                             <button className="btn btn-lightgray border-0 dropdown-toggle fw-semibold text-white"
                                 stype="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -43,13 +43,13 @@ const Navbar = () => {
                                 <li><a className="dropdown-item rounded-2" href="#">Profile</a></li>
                                 <li><a className="dropdown-item rounded-2" href="#">Explore</a></li>
                                 <li><hr className="dropdown-divider" /></li>
-                                    <li><a className="dropdown-item rounded-2" href="#">Logout</a></li>
-  </ul>
+                                <li><a className="dropdown-item rounded-2" href="#">Logout</a></li>
+                            </ul>
                         </div>
-      </form>
-    </div>
-  </div>
-</nav>)
+                    </form>
+                </div>
+            </div>
+        </nav>)
 }
 
 export default Navbar;
