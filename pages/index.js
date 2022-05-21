@@ -4,7 +4,6 @@ import Navbar from '../Components/Navbar'
 import OfferWalls from '../Components/Offerwalls'
 import Carousel from '../Components/Carousel'
 
-
 export default function Home() {
     return (
         <>
