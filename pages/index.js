@@ -7,7 +7,7 @@ import Tasks from '../Components/Tasks'
 import axios from 'axios';
 
 Home.getInitialProps = async (ctx) => {
-    const res = await axios.get('https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/sds6d/offers');
+    const res = await axios.get('https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/sds6ds88s99ss/offers');
     return { offers: res.data };
 }
 
