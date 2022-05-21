@@ -3,8 +3,9 @@
     "",
     "\\Components",
     "\\pages",
+    "\\pages\\api",
     "\\styles"
   ],
-  "SelectedNode": "\\Components\\Navbar.js",
+  "SelectedNode": "\\pages\\api\\postback.js",
   "PreviewInSolutionExplorer": false
 }
