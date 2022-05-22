@@ -2,11 +2,13 @@ import LocalAtmIcon from '@mui/icons-material/LocalAtm';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import RecommendIcon from '@mui/icons-material/Recommend';
 
+
 const Navbar = () => {
+   
     return (
         <nav className="navbar navbar-expand-lg bg-dark " >
             <div className="container my-3">
-                <a className="navbar-brand " href="#">LuckyOffer</a>
+                <a className="navbar-brand " href="#" >LuckyOffer</a>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">

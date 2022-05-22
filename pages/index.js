@@ -7,6 +7,9 @@ import Carousel from '../Components/Carousel'
 export default function Home() {
     return (
         <>
+            <Head>
+                <title>Lucky Offer</title>
+                </Head>
             <Navbar />
             <Carousel />
             <div className="bg-dark">
