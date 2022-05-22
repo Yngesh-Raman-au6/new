@@ -16,19 +16,20 @@ const Offerwalls = ({ offers }) => {
 
         <div className="p-5">
 
-            <div className="modal fade" id="offerWallModel" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-                    <div className="modal-content ">
+            <div className="modal fade" id="offerWallModel"
+                tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                    <div className="modal-content">
                         <div className="modal-header">
-                            <h5 className="modal-title" id="exampleModalLabel">
-                                {offerwallTitle} 
-                                <a href={offerwallUrl} rel="noreferrer"
-                                    target="_blank" ><OpenInNewIcon className="mb-1 mx-1" fontSize="small" />
+                            <h5 className="modal-title text-white" id="exampleModalLabel">
+                                {offerwallTitle}
+                                <a href={offerwallUrl} rel="noreferrer" className="text-white"
+                                    target="_blank" ><OpenInNewIcon className="mb-1 mx-2" fontSize="small" />
                                 </a>
                             </h5>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                        <iframe className="modal-body mx-auto" name="theFrame"  height="570" width="100%"></iframe>
+                        <iframe className="modal-body mx-auto px-0" name="theFrame"  height="570" width="100%"></iframe>
                        
                     </div>
                 </div>
