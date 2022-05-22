@@ -1,60 +1,5 @@
-a, li, .h1, h2, h3, h6, span {
-    font-family: 'Poppins', sans-serif !important;
-    color: lightslategray !important;
-}
-
-.btn-lightgray {
-    background-color: #33334C !important;
-}
-
-
-a .navicon {
-    -webkit-transition: 0.5s ease-out;
-    -moz-transition: 0.5s ease-out;
-    transition: 0.5s ease-out;
-}
-
-a:hover .navicon {
-    -webkit-transform: rotateZ(360deg);
-    -moz-transform: rotateZ(360deg);
-    transform: rotateZ(360deg);
-}
-
-.card {
-    background-color: rgb(255,255,255, 0.05) !important;
-}
-
-    .card:hover {
-        opacity: 0.5;
-    }
-
-.card-body{
-    background-color: rgb(34,35,57, 0.8) !important;
-}
-
-.carousel {
-    background-color: rgb(34,35,57) !important;
-}
-
-.fs-8 {
-    font-size: 11px !important;
-}
-
-.active {
-    color: lightgreen !important;
-}
-
-.text-bright {
-    color: lightgreen !important;
-}
-
-.modal-header {
-    background-color: rgb(34,35,57) !important;
-}
-
-
-.loader-wrapper {
-    background-color: lightslategray;
+.loader {
+    background: #333;
     display: flex;
     width: 100vw;
     height: 100vh;
@@ -64,21 +9,21 @@ a:hover .navicon {
     margin: 0px;
 }
 
-    .loader-wrapper .container {
+    .loader .container {
         width: 112px;
         height: 112px;
     }
 
-        .loader-wrapper .container .box1,
-        .loader-wrapper .container .box2,
-        .loader-wrapper .container .box3 {
+        .loader .container .box1,
+        .loader .container .box2,
+        .loader .container .box3 {
             border: 16px solid #f5f5f5;
             box-sizing: border-box;
             position: absolute;
             display: block;
         }
 
-        .loader-wrapper .container .box1 {
+        .loader .container .box1 {
             width: 112px;
             height: 48px;
             margin-top: 64px;
@@ -87,7 +32,7 @@ a:hover .navicon {
             animation: anime1 4s 0s forwards ease-in-out infinite;
         }
 
-        .loader-wrapper .container .box2 {
+        .loader .container .box2 {
             width: 48px;
             height: 48px;
             margin-top: 0px;
@@ -96,7 +41,7 @@ a:hover .navicon {
             animation: anime2 4s 0s forwards ease-in-out infinite;
         }
 
-        .loader-wrapper .container .box3 {
+        .loader .container .box3 {
             width: 48px;
             height: 48px;
             margin-top: 0px;

@@ -5,11 +5,14 @@ const Offerwalls = ({ offers }) => {
 
     const[offerwallTitle, setOfferwallTitle] = useState('')
     const[offerwallUrl, setOfferwallUrl] = useState('')
+    const [offerwallIsLoaded, setOfferwallIsLoaded] = useState(false);
 
-    const openTab = (url, offerwallTitle) => {
+    const openTab = async (url, offerwallTitle) => {
+        setOfferwallIsLoaded(false);
+        await window.open(url, "theFrame");
         setOfferwallTitle(offerwallTitle);
         setOfferwallUrl(url);
-        window.open(url, "theFrame");
+        await setOfferwallIsLoaded(true);
     }
 
     return (
@@ -27,10 +30,16 @@ const Offerwalls = ({ offers }) => {
                                     target="_blank" ><OpenInNewIcon className="mb-1 mx-2" fontSize="small" />
                                 </a>
                             </h5>
-                            <button type="button" className="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+                            <button type="button" className="btn-close bg-light"
+                                data-bs-dismiss="modal" aria-label="Close" onClick={() => openTab( '/loading','Lucky Offer')}></button>
                         </div>
-                        <iframe className="modal-body mx-auto px-0" name="theFrame"  height="570" width="100%"></iframe>
-                       
+                        <iframe className={`modal-body mx-auto px-0 py-0 ${offerwallIsLoaded ? `d-block` : `d-none` }`} name="theFrame"
+                            height="570" width="100%"  />
+
+                        {!offerwallIsLoaded && <div className="modal-body mx-auto px-0"
+                            height="570" width="100%">
+                            <h1>Loading Offers</h1></div>
+                        }
                     </div>
                 </div>
             </div>
