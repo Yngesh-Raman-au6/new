@@ -5,7 +5,7 @@ const Offerwalls = ({ offers }) => {
 
                 <div className="col-lg-3">
                     <a href="https://wall.adgaterewards.com/oKuUpw/471109"
-                        rel="noreferrer" target="_blank" className="card p-3 text-decoration-none">
+                         className="card p-3 text-decoration-none">
                         <div className="card bg-dark text-white">
                             <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5bddd30afbd6140001fa4ffb/0x0.png" className="card-img" alt="..." />
                             <div className="card-img-overlay">
@@ -23,7 +23,7 @@ const Offerwalls = ({ offers }) => {
                 </div>
                 <div className="col-lg-3">
                     <a href="https://fastrsrvr.com/list/471109"
-                        rel="noreferrer" target="_blank" className="card p-3 h-100 text-decoration-none">
+                        className="card p-3 h-100 text-decoration-none">
                         <div className="card bg-dark text-white">
                             <img src="https://images-na.ssl-images-amazon.com/images/I/61onWbZBZSL.png"
                                 className="card-img" alt="..." />
