@@ -65,11 +65,6 @@ a:hover .navicon {
     color: lightgreen !important;
 }
 
-.modal-header {
-    background-color: rgb(34,35,57) !important;
-}
-
-
 .loader-wrapper {
     background-color: lightslategray;
     display: flex;

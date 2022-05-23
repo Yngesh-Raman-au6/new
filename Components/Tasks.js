@@ -36,7 +36,7 @@ const Tasks = ({ offers }) => {
 
 
                                 <div className="card-body  shadow-sm rounded">
-                                    <img src={task.icon_url} className="card-img-top h-50" alt="..." />
+                                    <img src={task.icon_url} className="card-img-top h-50" alt={task.anchor} />
                                     <div className="card-body text-center">
                                         <div className="badge bg-primary text-wrap" >
                                             <span className="position-absolute top-0 

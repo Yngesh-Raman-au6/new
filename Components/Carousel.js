@@ -13,7 +13,7 @@ const Carousel = () => {
 
 
     const getRandomUser = async () => {
-            const res = await axios.get('https://randomuser.me/api/');
+        const res = await axios.get('https://randomuser.me/api/');
         const user = await res.data.results;
         const newUsers = [...randomUsers, user[0]];
         await setRandomUsers(newUsers);
@@ -35,7 +35,7 @@ const Carousel = () => {
                                         backgroundSize: "100% 100%"
                                     }}>
                                 </a>
-                                {user.login.username.substring(0, 13)}
+                                {user.login.username.substring(0, 10)}
                         </button>
                     </div>)
                 })};

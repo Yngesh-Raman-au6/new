@@ -1,8 +1,9 @@
 import React, { useState, createContext } from 'react';
 
 const initialState = {
-    offerTitle: 'Lucky Offer',
+    offerTitle: process.env.NEXT_PUBLIC_APP_NAME,
     offerUrl: '/loading',
+    modelSignIn: true,
 };
 
 export const Context = createContext();

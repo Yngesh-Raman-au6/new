@@ -25,11 +25,12 @@ const Offerwalls = () => {
 
         <div className="p-5">
 
+            {/* Task Model */}
             <div className="modal fade" id="offerWallModel"
                 tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
                     <div className="modal-content">
-                        <div className="modal-header">
+                        <div className="modal-header modal-header-bg" style={{ backgroundColor: 'rgb(34,35,57)' }}>
                             <h5 className="modal-title text-white" id="exampleModalLabel">
                                 {state.offerTitle}
                                 <a href={state.offerUrl} rel="noreferrer" className="text-white"
