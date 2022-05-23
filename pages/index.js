@@ -7,7 +7,7 @@ import axios from 'axios'
 
 
 Home.getInitialProps = async () => {
-    const url = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/dwder34/offers?country_code=IN`
+    const url = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/dwder34/offers?country_code=in`
     const res = await axios.get(url);
     return { offers: res.data }
 }
