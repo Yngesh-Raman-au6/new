@@ -48,6 +48,8 @@ start-100 translate-middle badge rounded-pill bg-danger text-white fs-6">
                                         </div>
                                         <p className="card-title text-white text-center mt-4 p-0" style={{ fontSize: '12px' }}>
                                             {task.description}
+                                        </p> <p className="card-title text-danger text-center mt-1 p-0" style={{ fontSize: '12px' }}>
+                                            {task.requirements}
                                         </p>
 
                                     </div>
