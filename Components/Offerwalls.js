@@ -1,18 +1,24 @@
-import { useState } from 'react';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
+import { Context } from '../context/Store'
+import { useContext, useEffect, useState } from 'react';
 
-const Offerwalls = ({ offers }) => {
+const Offerwalls = () => {
 
-    const[offerwallTitle, setOfferwallTitle] = useState('')
-    const[offerwallUrl, setOfferwallUrl] = useState('')
-    const [offerwallIsLoaded, setOfferwallIsLoaded] = useState(false);
+    const [state, setState] = useContext(Context);
+
+    useEffect(() => {
+        window.open(state.offerUrl, "theFrame");
+    },[])
 
     const openTab = async (url, offerwallTitle) => {
-        setOfferwallIsLoaded(false);
+
+        await setState(prevState => ({
+            ...prevState,
+            ['offerTitle']: offerwallTitle,
+            ['offerUrl']: url
+        }));
+
         await window.open(url, "theFrame");
-        setOfferwallTitle(offerwallTitle);
-        setOfferwallUrl(url);
-        await setOfferwallIsLoaded(true);
     }
 
     return (
@@ -25,21 +31,17 @@ const Offerwalls = ({ offers }) => {
                     <div className="modal-content">
                         <div className="modal-header">
                             <h5 className="modal-title text-white" id="exampleModalLabel">
-                                {offerwallTitle}
-                                <a href={offerwallUrl} rel="noreferrer" className="text-white"
+                                {state.offerTitle}
+                                <a href={state.offerUrl} rel="noreferrer" className="text-white"
                                     target="_blank" ><OpenInNewIcon className="mb-1 mx-2" fontSize="small" />
                                 </a>
                             </h5>
                             <button type="button" className="btn-close bg-light"
                                 data-bs-dismiss="modal" aria-label="Close" onClick={() => openTab( '/loading','Lucky Offer')}></button>
                         </div>
-                        <iframe className={`modal-body mx-auto px-0 py-0 ${offerwallIsLoaded ? `d-block` : `d-none` }`} name="theFrame"
+                        <iframe className={`modal-body mx-auto px-0 py-0 `} name="theFrame"
                             height="570" width="100%"  />
 
-                        {!offerwallIsLoaded && <div className="modal-body mx-auto px-0"
-                            height="570" width="100%">
-                            <h1>Loading Offers</h1></div>
-                        }
                     </div>
                 </div>
             </div>
