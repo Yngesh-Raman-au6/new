@@ -57,12 +57,24 @@ a:hover .navicon {
     font-size: 11px !important;
 }
 
+.fs-7 {
+    font-size: 13px !important;
+}
+
 .active {
     color: lightgreen !important;
 }
 
+.pointer{
+    cursor: pointer !important;
+}
+
 .text-bright {
     color: lightgreen !important;
+}
+
+.authModel {
+    background-color: rgb(34,35,57, 0.8) !important;
 }
 
 .loader-wrapper {

@@ -2,9 +2,10 @@
   "ExpandedNodes": [
     "",
     "\\Components",
+    "\\context",
     "\\pages",
     "\\styles"
   ],
-  "SelectedNode": "\\pages\\loading.js",
+  "SelectedNode": "\\Components\\Tasks.js",
   "PreviewInSolutionExplorer": false
 }

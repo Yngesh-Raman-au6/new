@@ -6,9 +6,19 @@ import VpnKeyIcon from '@mui/icons-material/VpnKey';
 import Link from 'next/link'
 import { Context } from '../context/Store'
 import { useContext } from "react";
+import { removeCookies } from 'cookies-next'
+import { motion } from 'framer-motion'
 
 const Navbar = () => {
     const [state, setState] = useContext(Context);
+
+    const handleLogout = async () => {
+        removeCookies('refreshToken');
+        setState(prevState => ({
+            ...prevState,
+            ['user']: null,
+        }));
+    };
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark " >
@@ -45,9 +55,13 @@ const Navbar = () => {
                         </li>
                     </ul>
 
+                    <motion.div className={state.user && `d-none`}
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0, duration: 0.7 }}
+                    >
                     <button className="btn mx-3 btn-lightgray border-0 fw-semibold fs-6 text-white"
                         data-bs-toggle="modal" data-bs-target="#authModel"
-
                         onClick={
                             () =>
                         setState(prevState => ({
@@ -72,27 +86,39 @@ const Navbar = () => {
                             aria-hidden="true">
                             <VpnKeyIcon fontSize="small" />
                         </a>  Sign up
-                    </button>
+                        </button>
+                    </motion.div>
 
-                    
+                    {state.user && ( 
+                        <form className="d-flex" role="search">
+                            <div className="dropdown">
+                                <button className="btn btn-lightgray border-0 fs-7 dropdown-toggle fw-semibold text-white"
+                                    stype="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
+                                
+                                >
+                                    <a href="#" tabIndex="-1"
+                                        className="btn btn-danger px-3 disabled placeholder text-light text-uppercase"
+                                        aria-hidden="true">{(state.user.username).charAt(0)}</a>
+                                    <span className="text-white mx-2">{state.user.username}</span>
+                                    <button className="btn fs-5 m-1 fw-bold text-bright p-2 bg-dark">
+                                        {state.user.coins} C
+                                    </button>
 
-                    <form className="d-flex d-none" role="search">
-                        <div className="dropdown">
-                            <button className="btn btn-lightgray border-0 dropdown-toggle fw-semibold text-white"
-                                stype="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                <a href="#" tabIndex="-1" className="btn btn-danger px-3 disabled placeholder text-light" aria-hidden="true">S</a>  User
-                            </button>
+                                </button>
 
-                            <ul className="dropdown-menu dropdown-menu-dark text-light gap-1 p-2 rounded-3 mx-0 border-0 shadow w-220px"
-                                aria-labelledby="dropdownMenuButton1">
-                                <li><a className="dropdown-item rounded-2 " href="#">Affiliate</a></li>
-                                <li><a className="dropdown-item rounded-2" href="#">Profile</a></li>
-                                <li><a className="dropdown-item rounded-2" href="#">Explore</a></li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li><a className="dropdown-item rounded-2" href="#">Logout</a></li>
-                            </ul>
-                        </div>
-                    </form>
+
+                                <ul className="dropdown-menu dropdown-menu-dark text-light gap-1 p-2 rounded-3 mx-0 border-0 shadow w-220px"
+                                    aria-labelledby="dropdownMenuButton1">
+                                    <li><a className="dropdown-item rounded-2 pointer" >Affiliate</a></li>
+                                    <li><a className="dropdown-item rounded-2 pointer" >Profile</a></li>
+                                    <li><a className="dropdown-item rounded-2 pointer" >Explore</a></li>
+                                    <li><hr className="dropdown-divider" /></li>
+                                    <li><a className="dropdown-item rounded-2 pointer" onClick={handleLogout}>Logout</a></li>
+                                </ul>
+                            </div>
+                        </form>
+                        )
+                    }
                 </div>
             </div>
         </nav>

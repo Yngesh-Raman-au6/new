@@ -5,15 +5,40 @@ import Tasks from '../Components/Tasks'
 import AuthModel from '../Components/AuthModel'
 import Carousel from '../Components/Carousel'
 import axios from 'axios'
+import { removeCookies } from 'cookies-next';
+import { Context } from '../context/Store'
+import { useContext, useEffect } from "react";
+import authorize from '../lib/authorize'
 
+Home.getInitialProps = async ({ req, res }) => {
 
-Home.getInitialProps = async () => {
-    const url = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/dwder34/offers?country_code=in`
-    const res = await axios.get(url);
-    return { offers: res.data }
+    // authorization layer
+    const authData = await authorize(req, res);
+
+    // get offers
+    const offerUrl = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/dwder34/offers?country_code=in`
+    const OffersRes = await axios.get(offerUrl);
+
+    // return data to page
+    return { authData: authData.data, offers: OffersRes.data }
 }
 
-export default function Home({ offers }) {
+export default function Home({ authData, offers }) {
+    const [state, setState] = useContext(Context);
+
+    useEffect(() => {
+        if (authData.authorization) {
+            setState(prevState => ({
+                ...prevState,
+                ['user']: authData.user,
+            }));
+        }
+        else {
+            removeCookies('refreshToken');
+        }
+
+    }, [])
+
     return (
         <>
             <Head>
