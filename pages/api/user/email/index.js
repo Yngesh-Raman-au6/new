@@ -7,7 +7,6 @@ export default async function handler(req, res) {
     };
 
     const { email, id } = req.body;
-    console.log(req.body)
 
     sendConfirmEmail(email, id);
 
