@@ -31,7 +31,7 @@ const Tasks = ({ offers }) => {
 
                             <a style={{ cursor: "pointer" }}
                                 onClick={() => openTab(task.click_url, task.anchor)}
-                                data-bs-toggle="modal" data-bs-target="#offerWallModel"
+                                data-bs-toggle="modal" data-bs-target={state.user ? `#offerWallModel` : `#authModel`}
                                 className="card p-3 h-100 text-decoration-none">
 
 

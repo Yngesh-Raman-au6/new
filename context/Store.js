@@ -4,7 +4,8 @@ const initialState = {
     offerTitle: process.env.NEXT_PUBLIC_APP_NAME,
     offerUrl: '/loading',
     modelSignIn: true,
-    user: null
+    user: null,
+    accountCreatedSuccess: false
 };
 
 export const Context = createContext();

@@ -1,9 +1,8 @@
-import React, { useContext,useRef, useEffect, useState } from 'react';
-import GoogleIcon from '@mui/icons-material/Google';
+import React, { useContext, useRef, useEffect, useState } from 'react';
 import { Context } from '../context/Store'
+import GoogleIcon from '@mui/icons-material/Google';
 import { motion } from 'framer-motion';
 import axios from 'axios';
-import { useRouter } from 'next/router';
 const { createHash } = require('crypto');
 
 export function hashStr(str) {
@@ -16,7 +15,7 @@ export default function AuthModel() {
     const closeBtnRef = useRef(null);
 
     return (
-        <div className="modal fade bg-secondary py-5" id="authModel"
+        <div className="modal fade py-5" id="authModel"
             tabIndex="-1" aria-labelledby="authModelLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered " role="document">
                 <div className="modal-content rounded-4 bg-dark shadow">
@@ -34,9 +33,8 @@ export default function AuthModel() {
         )
 };
 
-export const SignUp = ({ closeBtnRef}) => {
+export const SignUp = () => {
 
-    const router = useRouter()
     const [state, setState] = useContext(Context);
     const [signUpData, setSignUpData] = useState({email: '', password:'', verifyPassword: ''});
     const [isDisabled, setIsDisabled] = useState(true);
@@ -44,8 +42,8 @@ export const SignUp = ({ closeBtnRef}) => {
 
     useEffect(() => {
         setResError('');
-        const { password, verifyPassword } = signUpData;
-        if (password.length >= 6 && password === verifyPassword) {
+        const { email, password, verifyPassword } = signUpData;
+        if (password.length >= 6 && password === verifyPassword && email.includes('.') && email.includes('@')) {
             setIsDisabled(false);
         }
         else {
@@ -59,19 +57,22 @@ export const SignUp = ({ closeBtnRef}) => {
         setIsDisabled(true);
 
         const res = await axios.post('/api/user/auth/signup', {
-            email: signUpData.email,
+            email: signUpData.email.toLowerCase(),
             password: hashStr(signUpData.password)
         });
 
         const data = res.data;
 
         if (data.success) {
+            await axios.post('api/user/email', data.user);
+            setIsDisabled(false);
+            setSignUpData({ email: '', password: '', verifyPassword: '' });
+
             setState(prevState => ({
                 ...prevState,
-                ['user']: data.user,
+                ['modelSignIn']: true,
+                ['accountCreatedSuccess']: true
             }));
-            setSignUpData({ email: '', password: '', verifyPassword: '' });
-            closeBtnRef.current.click();
         }
         else {
             setResError(data.response)
@@ -79,7 +80,8 @@ export const SignUp = ({ closeBtnRef}) => {
         }
     }
 
-    return (
+    return (<>
+
         <motion.div className="modal-body p-5 pt-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -122,9 +124,11 @@ export const SignUp = ({ closeBtnRef}) => {
                             })}  />
                 </div>
 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center my-2">
                     <span className="text-center text-danger">{resError}</span>
                 </div>
+
+         
 
                 <motion.button
                     whileHover={{ scale: 1.03 }}
@@ -155,6 +159,7 @@ export const SignUp = ({ closeBtnRef}) => {
 
             </form>
         </motion.div>
+        </>
         )
 };
 
@@ -168,7 +173,8 @@ export const SignIn = ({ closeBtnRef }) => {
 
     useEffect(() => {
         setResError('');
-        if (signInData.password.length >= 6) {
+        const { email, password } = signInData;
+        if (password.length >= 6 && email.includes('.') && email.includes('@')) {
             setIsDisabled(false);
         }
         else {
@@ -183,7 +189,7 @@ export const SignIn = ({ closeBtnRef }) => {
         setIsDisabled(true);
 
         const res = await axios.post('/api/user/auth/login', {
-            email: signInData.email,
+            email: signInData.email.toLowerCase(),
             password: hashStr(signInData.password)
         });
 
@@ -234,10 +240,22 @@ export const SignIn = ({ closeBtnRef }) => {
                 </div>
 
 
-                <div className="d-flex justify-content-center">
+                <div className="d-flex justify-content-center my-2">
                     <span className="text-center text-danger">{resError}</span>
                 </div>
+                {state.accountCreatedSuccess &&
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <strong>Account created !</strong> Please check your inbox for an activation mail to complete the registration process.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() =>
+                        setState(prevState => ({
+                            ...prevState,
+                            ['accountCreatedSuccess']: false
+                        }))
+                        }>
+                    </button>
 
+                    </div>
+                }
                 <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}

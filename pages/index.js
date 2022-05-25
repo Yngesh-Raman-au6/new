@@ -9,6 +9,7 @@ import { removeCookies } from 'cookies-next';
 import { Context } from '../context/Store'
 import { useContext, useEffect } from "react";
 import authorize from '../lib/authorize'
+import buildId from 'build-id'
 
 Home.getInitialProps = async ({ req, res }) => {
 
@@ -16,7 +17,7 @@ Home.getInitialProps = async ({ req, res }) => {
     const authData = await authorize(req, res);
 
     // get offers
-    const offerUrl = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/dwder34/offers?country_code=in`
+    const offerUrl = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/${authData.data.user ? authData.data.user._id : buildId()}/offers?country_code=in`
     const OffersRes = await axios.get(offerUrl);
 
     // return data to page

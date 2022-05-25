@@ -35,7 +35,7 @@ const Carousel = () => {
                                         backgroundSize: "100% 100%"
                                     }}>
                                 </a>
-                                {user.login.username.substring(0, 10)}
+                                {user.login.username.substring(0, 7)}
                         </button>
                     </div>)
                 })};

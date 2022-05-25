@@ -1,11 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\Components",
     "\\context",
-    "\\pages",
-    "\\styles"
+    "\\pages\\api",
+    "\\pages\\api\\user\\auth",
+    "\\utils\\models"
   ],
-  "SelectedNode": "\\Components\\Tasks.js",
+  "SelectedNode": "\\.env.production",
   "PreviewInSolutionExplorer": false
 }

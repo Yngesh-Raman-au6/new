@@ -5,11 +5,12 @@ import userSchema from '../../../../utils/models/userSchema'
 dbConnect();
 
 export default async function handler(req, res) {
+
     if (req.method !== 'POST') {
         return res.status(500).json({ message: 'Soory this is post route' })
     }
 
-    const unAuthorized = { success: true, authorization: false }
+    const unAuthorized = { success: true, authorization: false, user: null }
     const authHeader = req.headers.authorization;
 
     if (authHeader) {

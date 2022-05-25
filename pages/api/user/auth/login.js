@@ -12,16 +12,20 @@ export default async function handler(req, res) {
         return res.status(500).json({ message: 'Soory this is post route' })
     }
 
-    // login handler
+    // get user Data
     const { email, password } = req.body;
     const userData = await userSchema.findOne({
         email: email
     });
 
 
-    if (!userData || userData.password !== password) {
+    if (!userData || userData.password !== password ) {
         return res.status(200).send({ success: false, authorization: false, response: "Email or password is invalid" })
     };
+
+    if (!userData.confirmed) {
+        return res.status(200).send({ success: false, authorization: false, response: "Please verify your account to login" })
+    }
 
 
     const refreshId = buildId(70);
@@ -41,7 +45,7 @@ export default async function handler(req, res) {
     return res.status(200).json({
         success: true,
         authorization: true,
-        user: { username: userData.username, id: userData._id }
+        user: userData
     });
 
 }

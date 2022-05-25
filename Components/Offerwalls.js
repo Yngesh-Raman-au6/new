@@ -50,8 +50,9 @@ const Offerwalls = () => {
             <div className="row row-cols-1 g-4 pb-5">
 
                 <div className="col-lg-3">
-                    <a onClick={() => openTab('https://wall.adgaterewards.com/oKuUpw/471109', 'Adgate Media')}
-                        className="card p-3 text-decoration-none" style={{ cursor: "pointer" }} data-bs-toggle="modal" data-bs-target="#offerWallModel">
+                    <a onClick={() => state.user && openTab(`https://wall.adgaterewards.com/oKuUpw/${state.user._id}`, 'Adgate Media')}
+                        className="card p-3 text-decoration-none" style={{ cursor: "pointer" }}
+                        data-bs-toggle="modal" data-bs-target={state.user ? `#offerWallModel` : `#authModel`}>
 
                         <div className="card bg-dark text-white">
                             <img src="https://s3-eu-west-1.amazonaws.com/tpd/logos/5bddd30afbd6140001fa4ffb/0x0.png" className="card-img" alt="..." />
@@ -69,10 +70,10 @@ const Offerwalls = () => {
 
                 </div>
                 <div className="col-lg-3">
-
-                    <a style={{ cursor: "pointer" }} onClick={() => openTab('https://fastrsrvr.com/list/471109', 'CPA Leads')}
-                        data-bs-toggle="modal" data-bs-target="#offerWallModel"
-                        className="card p-3 h-100 text-decoration-none">
+                    
+                    <a onClick={() => state.user && openTab(`https://fastrsrvr.com/list/471109?subid=${state.user._id}`, 'CPA Leads')}
+                        data-bs-toggle="modal" data-bs-target={state.user ? `#offerWallModel` : `#authModel`}
+                        className="card p-3 h-100 text-decoration-none pointer">
 
 
                         <div className="card bg-dark text-white">

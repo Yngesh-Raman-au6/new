@@ -1,7 +1,5 @@
 import dbConnect from '../../../../utils/dbConnect';
-import { signJWT, verifyJWT } from '../../../../utils/jwt';
 import userSchema from '../../../../utils/models/userSchema'
-import { setCookies } from 'cookies-next';
 import buildId from 'build-id'
 
 dbConnect();
@@ -18,9 +16,10 @@ async function handler(req, res) {
 
     if (userExist == null) {
 
-        const refreshId = buildId(70);
         var name = email.split("@")[0];
-        const userName = name.slice(0, 10);
+        const nameString = await name.slice(0, 4) + buildId() ;
+        const userName = nameString.slice(0, 7) ;
+
 
         // create user in db
         const userData = await userSchema.create({
@@ -29,23 +28,13 @@ async function handler(req, res) {
             email: email,
             password: password,
             created: new Date(),
-            refreshId: refreshId,
         });
-
-
-        // create tokens
-        const payload = { id: userData._id, refreshId: refreshId }
-        const refreshToken = signJWT(payload, `${process.env.USER_SESSION_TIME}s`);
-
-
-        // set access token in storage
-        setCookies('refreshToken', refreshToken, { req, res, maxAge: process.env.USER_SESSION_TIME });
 
         // send user back
         return res.status(200).json({
             success: true,
-            authorization: true,
-            user: { username: userData.username, id: userData._id }
+            authorization: false,
+            user: { email: userData.email, id: userData._id }
         });
 
     }
