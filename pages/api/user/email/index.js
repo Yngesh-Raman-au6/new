@@ -8,8 +8,12 @@ export default async function handler(req, res) {
 
     const { email, id } = req.body;
 
-    sendConfirmEmail(email, id);
-
+    try {
+        await sendConfirmEmail(email, id);
+    }
+    catch (err){
+        console.log(err);
+    }
     return res.json({success: true})
 
 }
