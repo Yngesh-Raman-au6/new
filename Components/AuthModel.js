@@ -4,6 +4,7 @@ import GoogleIcon from '@mui/icons-material/Google';
 import { motion } from 'framer-motion';
 import axios from 'axios';
 const { createHash } = require('crypto');
+import { signInWithGoogle, signUpWithGoogle } from '../utils/firebase/auth';
 
 export function hashStr(str) {
     return createHash('sha256').update(str).digest('hex');
@@ -33,11 +34,12 @@ export default function AuthModel() {
         )
 };
 
-export const SignUp = () => {
+export const SignUp = ({ closeBtnRef }) => {
 
     const [state, setState] = useContext(Context);
     const [signUpData, setSignUpData] = useState({email: '', password:'', verifyPassword: ''});
     const [isDisabled, setIsDisabled] = useState(true);
+    const [authIsDisabled, setAuthIsDisabled] = useState(false);
     const [resError, setResError] = useState('');
 
     useEffect(() => {
@@ -79,6 +81,26 @@ export const SignUp = () => {
             setIsDisabled(false);
         }
     }
+
+    const handleGoogleAuth = async () => {
+        setIsDisabled(true);
+        setAuthIsDisabled(true);
+        setResError("")
+
+        const res = await signUpWithGoogle();
+        if (res.success) {
+            setState(prevState => ({
+                ...prevState,
+                ['user']: res.user,
+            }));
+            closeBtnRef.current.click();
+        }
+        else {
+            setResError(res.response)
+            setIsDisabled(false);
+            setAuthIsDisabled(false);
+        }
+    };
 
     return (<>
 
@@ -145,14 +167,15 @@ export const SignUp = () => {
                                 ...prevState,
                                 ['modelSignIn']: true,
                             }))
-                            }>
+                            } >
                             Sign in</a></small>
                 </div>
 
                 <hr className="my-3" />
 
 
-                <button className="w-100 py-2 mb-2 btn btn-outline-secondary text-bright rounded-3" type="button">
+                <button className="w-100 py-2 mb-2 btn btn-outline-secondary text-bright rounded-3" type="button"
+                    onClick={handleGoogleAuth} disabled={authIsDisabled}>
                     <GoogleIcon className="mb-1 mx-1" /> Sign up with Google
                 </button>
                 <small className="text-white">By clicking Sign up, you agree to the terms of use.</small>
@@ -169,6 +192,7 @@ export const SignIn = ({ closeBtnRef }) => {
     const [state, setState] = useContext(Context);
     const [signInData, setSignInData] = useState({ email: '', password: '' });
     const [isDisabled, setIsDisabled] = useState(true);
+    const [authIsDisabled, setAuthIsDisabled] = useState(false);
     const [resError, setResError] = useState('');
 
     useEffect(() => {
@@ -206,6 +230,26 @@ export const SignIn = ({ closeBtnRef }) => {
         else {
             setResError(data.response)
             setIsDisabled(false);
+        }
+    };
+
+    const handleGoogleAuth = async () => {
+        setIsDisabled(true);
+        setAuthIsDisabled(true);
+        setResError("")
+
+        const res = await signInWithGoogle();
+        if (res.success) {
+            setState(prevState => ({
+                ...prevState,
+                ['user']: res.user,
+            }));
+            closeBtnRef.current.click();
+        }
+        else {
+            setResError(res.response)
+            setIsDisabled(false);
+            setAuthIsDisabled(false);
         }
     };
 
@@ -279,7 +323,9 @@ export const SignIn = ({ closeBtnRef }) => {
                 <hr className="my-3" />
 
 
-                <button className="w-100 py-2 mb-2 btn btn-outline-secondary text-bright rounded-3" type="button">
+                <button className="w-100 py-2 mb-2 btn btn-outline-secondary text-bright rounded-3" type="button"
+                    onClick={handleGoogleAuth}
+                    disabled={authIsDisabled}>
                     <GoogleIcon className="mb-1 mx-1" /> Sign in with Google
                 </button>
                 <small className="text-white">By clicking Sign In, you agree to the terms of use.</small>

@@ -97,10 +97,11 @@ const Navbar = () => {
                                 
                                 >
                                     <a href="#" tabIndex="-1"
-                                        className="btn btn-danger px-3 disabled placeholder text-light text-uppercase"
-                                        aria-hidden="true">{(state.user.username).charAt(0)}</a>
+                                        className={`btn ${!state.user.photoUrl && `bg-danger`} border-0 px-3 disabled placeholder text-light text-uppercase`}
+                                        style={{ backgroundImage: `url(${state.user.photoUrl})`, backgroundSize: '100% 100%' }}
+                                        aria-hidden="true">{!state.user.photoUrl && (state.user.username).charAt(0)}</a>
                                     <span className="text-white mx-2">{state.user.username}</span>
-                                    <button className="btn fs-5 m-1 fw-bold text-bright p-2 bg-dark">
+                                    <button className="btn fs-5 m-1 fw-bold text-bright p-2 bg-dark" disabled>
                                         {state.user.coins} C
                                     </button>
 

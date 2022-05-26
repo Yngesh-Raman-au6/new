@@ -1,7 +1,7 @@
-import dbConnect from '../../../../utils/dbConnect';
-import { signJWT } from '../../../../utils/jwt';
+import dbConnect from '../../../../../utils/dbConnect';
+import { signJWT } from '../../../../../utils/jwt';
+import userSchema from '../../../../../utils/models/userSchema'
 import { setCookies } from 'cookies-next';
-import userSchema from '../../../../utils/models/userSchema'
 import buildId from 'build-id'
 
 dbConnect();
@@ -13,21 +13,21 @@ export default async function handler(req, res) {
     }
 
     // get user Data
-    const { email, password } = req.body;
+    const { email } = req.body;
     const userData = await userSchema.findOne({
         email: email
     });
 
-    if (userData.googleAuth) {
-        return res.status(200).send({ success: false, authorization: false, response: "Please login using Google" })
-    }
 
-    if (!userData || userData.password !== password ) {
-        return res.status(200).send({ success: false, authorization: false, response: "Email or password is invalid" })
+    if (!userData ) {
+        return res.status(200).send({ success: false, authorization: false, response: "User not found" })
     };
 
-    if (!userData.confirmed) {
-        return res.status(200).send({ success: false, authorization: false, response: "Please verify your account to login" })
+    if (!userData.googleAuth) {
+        return res.status(200).send({
+            success: false, authorization: false, response:
+                "Account is not linked with google"
+        })
     }
 
 

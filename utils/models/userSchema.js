@@ -9,7 +9,14 @@ const usersSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-
+    googleAuth: {
+        type: Boolean,
+        default: false
+    },
+    photoUrl: {
+        type: String,
+        default: null
+    },
     username: {
         type: String,
         required: true
@@ -17,7 +24,7 @@ const usersSchema = new mongoose.Schema({
 
     password: {
         type: String,
-        required: true,
+        default: null
     },
     confirmed: {
         type: Boolean,

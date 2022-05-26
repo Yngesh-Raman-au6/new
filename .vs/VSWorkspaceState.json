@@ -1,10 +1,11 @@
 {
   "ExpandedNodes": [
     "",
-    "\\context",
-    "\\pages\\api",
-    "\\pages\\api\\user\\auth",
-    "\\utils\\models"
+    "\\lib\\Email",
+    "\\pages",
+    "\\pages\\api\\user",
+    "\\public",
+    "\\utils"
   ],
   "SelectedNode": "\\.env.production",
   "PreviewInSolutionExplorer": false
