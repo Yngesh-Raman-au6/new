@@ -5,7 +5,7 @@ const initialState = {
     offerUrl: '/loading',
     modelSignIn: true,
     user: null,
-    accountCreatedSuccess: false
+    accountCreatedSuccess: false,
 };
 
 export const Context = createContext();

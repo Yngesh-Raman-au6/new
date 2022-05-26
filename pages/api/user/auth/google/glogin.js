@@ -18,8 +18,7 @@ export default async function handler(req, res) {
         email: email
     });
 
-
-    if (!userData ) {
+    if (!userData) {
         return res.status(200).send({ success: false, authorization: false, response: "User not found" })
     };
 
@@ -28,8 +27,7 @@ export default async function handler(req, res) {
             success: false, authorization: false, response:
                 "Account is not linked with google"
         })
-    }
-
+    };
 
     const refreshId = buildId(70);
 

@@ -7,9 +7,11 @@ import Carousel from '../Components/Carousel'
 import axios from 'axios'
 import { removeCookies } from 'cookies-next';
 import { Context } from '../context/Store'
-import { useContext, useEffect } from "react";
+import React,{ useContext, useEffect } from "react";
 import authorize from '../lib/authorize'
 import buildId from 'build-id'
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 Home.getInitialProps = async ({ req, res }) => {
 
@@ -26,6 +28,23 @@ Home.getInitialProps = async ({ req, res }) => {
 
 export default function Home({ authData, offers }) {
     const [state, setState] = useContext(Context);
+    const recaptchaRef = React.createRef();
+
+    const onReCAPTCHAChange = (captchaCode) => {
+        // If the reCAPTCHA code is null or undefined indicating that
+        // the reCAPTCHA was expired then return early
+        if (!captchaCode) {
+            return;
+        }
+        // Else reCAPTCHA was executed successfully so proceed with the 
+        setState(prevState => ({
+            ...prevState,
+            ['isVerifired']: true,
+        }))
+        // Reset the reCAPTCHA so that it can be executed again if user 
+        // submits another email.
+        recaptchaRef.current.reset();
+    }
 
     useEffect(() => {
         if (authData.authorization) {
@@ -40,6 +59,7 @@ export default function Home({ authData, offers }) {
 
     }, [])
 
+       
     return (
         <>
             <Head>
@@ -53,7 +73,14 @@ export default function Home({ authData, offers }) {
 
             {/* Modal */}
             <AuthModel />
-
+            <div style={{ zIndex: "6", position: "absolute" }}>
+            <ReCAPTCHA
+                ref={recaptchaRef}
+                size="invisible"
+                sitekey="6Ld5zh8gAAAAAAsDOB4gBjcOn3xekyoS6AvupPwb"
+                onChange={onReCAPTCHAChange}
+                />
+                </div>
 
             <div className="bg-dark mt-lg-5" style={{ paddingTop: '13vh' }}>
 

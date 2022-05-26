@@ -1,12 +1,15 @@
 {
   "ExpandedNodes": [
     "",
-    "\\lib\\Email",
     "\\pages",
+    "\\pages\\api",
     "\\pages\\api\\user",
+    "\\pages\\api\\user\\auth",
+    "\\pages\\api\\user\\auth\\google",
     "\\public",
-    "\\utils"
+    "\\utils",
+    "\\utils\\models"
   ],
-  "SelectedNode": "\\.env.production",
+  "SelectedNode": "\\pages\\api\\user\\auth\\login.js",
   "PreviewInSolutionExplorer": false
 }

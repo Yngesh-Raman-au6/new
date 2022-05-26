@@ -4,13 +4,13 @@ import axios from 'axios';
 
 const handleLogin = async (res) => {
     const data = res._tokenResponse;
-    const response = await axios.post('/api/user/auth/google/login', {email: data.email})
+    const response = await axios.post('/api/user/auth/google/glogin', {email: data.email})
     return response.data;
 };
 
 const handleSignUp = async (res) => {
     const data = res._tokenResponse;
-    const response = await axios.post('/api/user/auth/google/signup', { email: data.email, photoUrl: data.photoUrl })
+    const response = await axios.post('/api/user/auth/google/gsignup', { email: data.email, photoUrl: data.photoUrl })
     return response.data;
 }
 

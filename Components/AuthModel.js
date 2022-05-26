@@ -5,17 +5,20 @@ import { motion } from 'framer-motion';
 import axios from 'axios';
 const { createHash } = require('crypto');
 import { signInWithGoogle, signUpWithGoogle } from '../utils/firebase/auth';
+import ClientCaptcha from 'react-client-captcha'
 
 export function hashStr(str) {
     return createHash('sha256').update(str).digest('hex');
 }
 
-export default function AuthModel() {
+export default function AuthModel({ }) {
 
     const [state, setState] = useContext(Context);
     const closeBtnRef = useRef(null);
 
     return (
+        <>
+
         <div className="modal fade py-5" id="authModel"
             tabIndex="-1" aria-labelledby="authModelLabel" aria-hidden="true">
             <div className="modal-dialog modal-dialog-centered " role="document">
@@ -30,7 +33,7 @@ export default function AuthModel() {
                 </div>
             </div>
         </div>
-
+            </>
         )
 };
 
@@ -39,24 +42,44 @@ export const SignUp = ({ closeBtnRef }) => {
     const [state, setState] = useContext(Context);
     const [signUpData, setSignUpData] = useState({email: '', password:'', verifyPassword: ''});
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
+    const [isVerified, setIsVerified] = useState(false);
     const [authIsDisabled, setAuthIsDisabled] = useState(false);
     const [resError, setResError] = useState('');
+    const [code, setCode] = useState('');
+    const [inputCode, setInputCode] = useState('')
 
     useEffect(() => {
         setResError('');
         const { email, password, verifyPassword } = signUpData;
-        if (password.length >= 6 && password === verifyPassword && email.includes('.') && email.includes('@')) {
+        if (password.length >= 6 && password === verifyPassword && email.includes('.') && email.includes('@') && isVerified) {
             setIsDisabled(false);
         }
         else {
             setIsDisabled(true);
         }
 
-    },[signUpData])
+    }, [signUpData, isVerified, inputCode])
+
+    const handleCaptcha = (e) => {
+        e.preventDefault();
+
+        console.log(inputCode);
+        console.log(code);
+
+        if (inputCode === code) {
+            setIsVerified(true);
+            setResError("");
+        }
+        else {
+            setResError("Code does not match");
+        }
+    }
 
     const submitData = async (e) => {
         e.preventDefault();
         setIsDisabled(true);
+        setIsLoading(true);
 
         const res = await axios.post('/api/user/auth/signup', {
             email: signUpData.email.toLowerCase(),
@@ -69,6 +92,7 @@ export const SignUp = ({ closeBtnRef }) => {
             await axios.post('api/user/email', data.user);
             setIsDisabled(false);
             setSignUpData({ email: '', password: '', verifyPassword: '' });
+            setIsLoading(false);
 
             setState(prevState => ({
                 ...prevState,
@@ -77,6 +101,7 @@ export const SignUp = ({ closeBtnRef }) => {
             }));
         }
         else {
+            setIsLoading(false);
             setResError(data.response)
             setIsDisabled(false);
         }
@@ -146,6 +171,25 @@ export const SignUp = ({ closeBtnRef }) => {
                             })}  />
                 </div>
 
+                <div className="d-flex justify-content-center">
+                    <div className="row justify-content-center ">
+                        <div className="col-6 col-lg-6">
+                            <ClientCaptcha captchaCode={(code) => setCode(code)} />
+                        </div>
+                        <div className="col-8 col-lg-6 mt-3 mt-lg-0">
+                            <div className="input-group mb-3">
+                                <input type="text"
+                                    className="form-control fs-5 p-0 text-center" value={inputCode}
+                                    onChange={(e) => setInputCode(e.target.value)} disabled={isVerified} maxLength="4" />
+                            <span className="input-group-text p-0" id="basic-addon2">
+                                    <button className={`btn btn-outline rounded-0 rounded-end ${isVerified && `text-success`}`}
+                                        onClick={handleCaptcha} disabled={isVerified}>{!isVerified ? `Verify` : `Verified`}</button>
+                                </span>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
                 <div className="d-flex justify-content-center my-2">
                     <span className="text-center text-danger">{resError}</span>
                 </div>
@@ -155,8 +199,13 @@ export const SignUp = ({ closeBtnRef }) => {
                 <motion.button
                     whileHover={{ scale: 1.03 }}
                     whileTap={{ scale: 0.98 }}
-                    className="w-100 my-2 btn btn-lg  rounded-3 border-0 btn-lightgray text-white"
-                    type="submit" onClick={submitData} disabled={isDisabled}>Sign up</motion.button>
+                    className="w-100 mt-1 btn btn-lg  rounded-3 border-0 btn-lightgray text-white"
+                    type="submit" onClick={submitData} disabled={isDisabled}>
+                    {isLoading ? (<div className="spinner-border text-light" role="status">
+                        <span className="visually-hidden">Loading...</span>
+                    </div>) : `Sign up`
+                    }
+                </motion.button>
 
 
                 <div className="d-flex mt-2">
@@ -192,6 +241,7 @@ export const SignIn = ({ closeBtnRef }) => {
     const [state, setState] = useContext(Context);
     const [signInData, setSignInData] = useState({ email: '', password: '' });
     const [isDisabled, setIsDisabled] = useState(true);
+    const [isLoading, setIsLoading] = useState(false);
     const [authIsDisabled, setAuthIsDisabled] = useState(false);
     const [resError, setResError] = useState('');
 
@@ -211,6 +261,7 @@ export const SignIn = ({ closeBtnRef }) => {
     const submitData = async (e) => {
         e.preventDefault();
         setIsDisabled(true);
+        setIsLoading(true);
 
         const res = await axios.post('/api/user/auth/login', {
             email: signInData.email.toLowerCase(),
@@ -218,16 +269,19 @@ export const SignIn = ({ closeBtnRef }) => {
         });
 
         const data = res.data;
+        console.log(data);
 
         if (data.success) {
             setState(prevState => ({
                 ...prevState,
                 ['user']: data.user,
             }));
+            setIsLoading(false);
             setSignInData({ email: '', password: '' });
             closeBtnRef.current.click();
         }
         else {
+            setIsLoading(false);
             setResError(data.response)
             setIsDisabled(false);
         }
@@ -288,9 +342,9 @@ export const SignIn = ({ closeBtnRef }) => {
                     <span className="text-center text-danger">{resError}</span>
                 </div>
                 {state.accountCreatedSuccess &&
-                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <div className="alert alert-success alert-dismissible fade show" role="alert">
                         <strong>Account created !</strong> Please check your inbox for an activation mail to complete the registration process.
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() =>
+                    <button type="button" className="btn-close" data-bs-dismiss="alert" aria-label="Close" onClick={() =>
                         setState(prevState => ({
                             ...prevState,
                             ['accountCreatedSuccess']: false
@@ -306,7 +360,10 @@ export const SignIn = ({ closeBtnRef }) => {
                     className="w-100 my-2 btn btn-lg rounded-3 border-0 btn-lightgray text-white" type="submit"
                     onClick={submitData}
                     disabled={isDisabled}
-                >Sign in</motion.button>
+                > {isLoading ? (<div className="spinner-border text-light" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div>) : `Sign in`
+                    }</motion.button>
 
 
                 <div className="d-flex mt-2">

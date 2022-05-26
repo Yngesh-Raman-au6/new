@@ -18,12 +18,16 @@ export default async function handler(req, res) {
         email: email
     });
 
+    if (!userData) {
+        return res.status(200).send({ success: false, authorization: false, response: "User not found" })
+    }
+
     if (userData.googleAuth) {
         return res.status(200).send({ success: false, authorization: false, response: "Please login using Google" })
     }
 
-    if (!userData || userData.password !== password ) {
-        return res.status(200).send({ success: false, authorization: false, response: "Email or password is invalid" })
+    if (userData.password !== password ) {
+        return res.status(200).send({ success: false, authorization: false, response: "Password is invalid" })
     };
 
     if (!userData.confirmed) {

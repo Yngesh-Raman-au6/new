@@ -22,7 +22,7 @@ const Tasks = ({ offers }) => {
 
     return (
 
-        <div className="p-5">
+        <div className="p-5" style={{ zIndex: "1" }}>
 
             <div className="row row-cols-1 g-4 pb-5">
                 {offers.data.slice(0, offerSize).map((task) => {
