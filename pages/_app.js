@@ -2,8 +2,19 @@ import '../styles/globals.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Script from 'next/script'
 import Store from '../context/Store';
+import { Router } from "next/router";
+import NProgress from 'nprogress'
 
 function MyApp({ Component, pageProps }) {
+
+    NProgress.configure({ showSpinner: false });
+    Router.events.on('routeChangeStart', (url) => {
+        NProgress.start()
+    });
+    Router.events.on('routeChangeComplete', (url) => {
+        NProgress.done()
+    });
+
     return (<>
         <Script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"
             integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossOrigin="anonymous" />

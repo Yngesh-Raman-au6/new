@@ -6,6 +6,7 @@ import axios from 'axios';
 const { createHash } = require('crypto');
 import { signInWithGoogle, signUpWithGoogle } from '../utils/firebase/auth';
 import ClientCaptcha from 'react-client-captcha'
+import { useRouter } from 'next/router';
 
 export function hashStr(str) {
     return createHash('sha256').update(str).digest('hex');
@@ -38,6 +39,7 @@ export default function AuthModel({ }) {
 };
 
 export const SignUp = ({ closeBtnRef }) => {
+    const router = useRouter();
     const [state, setState] = useContext(Context);
     const [signUpData, setSignUpData] = useState({email: '', password:'', verifyPassword: ''});
     const [isDisabled, setIsDisabled] = useState(true);
@@ -118,6 +120,7 @@ export const SignUp = ({ closeBtnRef }) => {
                 ['user']: res.user,
             }));
             closeBtnRef.current.click();
+            router.push('/');
         }
         else {
             setResError(res.response)
@@ -241,6 +244,7 @@ export const SignUp = ({ closeBtnRef }) => {
 
 export const SignIn = ({ closeBtnRef }) => {
 
+    const router = useRouter();
     const [state, setState] = useContext(Context);
     const [signInData, setSignInData] = useState({ email: '', password: '' });
     const [isDisabled, setIsDisabled] = useState(true);
@@ -282,6 +286,7 @@ export const SignIn = ({ closeBtnRef }) => {
             setIsLoading(false);
             setSignInData({ email: '', password: '' });
             closeBtnRef.current.click();
+            router.push('/');
         }
         else {
             setIsLoading(false);
@@ -302,6 +307,7 @@ export const SignIn = ({ closeBtnRef }) => {
                 ['user']: res.user,
             }));
             closeBtnRef.current.click();
+            router.push('/');
         }
         else {
             setResError(res.response)

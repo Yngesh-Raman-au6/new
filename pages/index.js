@@ -4,7 +4,7 @@ import Footer from '../Components/Footer'
 import OfferWalls from '../Components/Offerwalls'
 import Tasks from '../Components/Tasks'
 import AuthModel from '../Components/AuthModel'
-import Carousel from '../Components/Carousel'
+import Carousel from '../Components/Carousel';
 import axios from 'axios'
 import { removeCookies } from 'cookies-next';
 import { Context } from '../context/Store'
@@ -13,8 +13,7 @@ import authorize from '../lib/authorize'
 import buildId from 'build-id'
 import ReCAPTCHA from "react-google-recaptcha";
 
-
-Home.getInitialProps = async ({ req, res }) => {
+export async function getServerSideProps({ req, res }) {
 
     // authorization layer
     const authData = await authorize(req, res);
@@ -24,7 +23,12 @@ Home.getInitialProps = async ({ req, res }) => {
     const OffersRes = await axios.get(offerUrl);
 
     // return data to page
-    return { authData: authData.data, offers: OffersRes.data }
+    return {
+        props: {
+            authData: authData.data,
+            offers: OffersRes.data
+        }
+}
 }
 
 export default function Home({ authData, offers }) {
@@ -32,18 +36,13 @@ export default function Home({ authData, offers }) {
     const recaptchaRef = React.createRef();
 
     const onReCAPTCHAChange = (captchaCode) => {
-        // If the reCAPTCHA code is null or undefined indicating that
-        // the reCAPTCHA was expired then return early
         if (!captchaCode) {
             return;
         }
-        // Else reCAPTCHA was executed successfully so proceed with the 
         setState(prevState => ({
             ...prevState,
             ['isVerifired']: true,
         }))
-        // Reset the reCAPTCHA so that it can be executed again if user 
-        // submits another email.
         recaptchaRef.current.reset();
     }
 

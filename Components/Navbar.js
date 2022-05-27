@@ -8,9 +8,11 @@ import { Context } from '../context/Store'
 import { useContext } from "react";
 import { removeCookies } from 'cookies-next'
 import { motion } from 'framer-motion'
+import { useRouter } from 'next/router'
 
 const Navbar = () => {
     const [state, setState] = useContext(Context);
+    const router = useRouter();
 
     const handleLogout = async () => {
         removeCookies('refreshToken');
@@ -18,12 +20,13 @@ const Navbar = () => {
             ...prevState,
             ['user']: null,
         }));
+        router.push('/')
     };
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark " >
             <div className="container py-2">
-                <Link href="/" >
+                <Link href="/" passHref>
                     <a className="navbar-brand " href="#" >{process.env.NEXT_PUBLIC_APP_NAME}</a>
                 </Link>
 
@@ -38,8 +41,10 @@ const Navbar = () => {
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
 
                         <li className="nav-item px-lg-3">
+                            <Link href="/" passHref>
                             <a className="nav-link active fw-semibold" aria-current="page" href="#">
-                                <RecommendIcon className="navicon" fontSize="large" /> Earn</a>
+                                    <RecommendIcon className="navicon" fontSize="large" /> Earn</a>
+                            </Link>
                         </li>
 
                         <li className="nav-item px-lg-3">
@@ -111,7 +116,7 @@ const Navbar = () => {
                                 <ul className="dropdown-menu dropdown-menu-dark text-light gap-1 p-2 rounded-3 mx-0 border-0 shadow w-220px"
                                     aria-labelledby="dropdownMenuButton1">
                                     <li><a className="dropdown-item rounded-2 pointer" >Affiliate</a></li>
-                                    <li><a className="dropdown-item rounded-2 pointer" >Profile</a></li>
+                                    <li><Link href="/account"><a className="dropdown-item rounded-2 pointer" >Profile</a></Link></li>
                                     <li><a className="dropdown-item rounded-2 pointer" >Explore</a></li>
                                     <li><hr className="dropdown-divider" /></li>
                                     <li><a className="dropdown-item rounded-2 pointer" onClick={handleLogout}>Logout</a></li>

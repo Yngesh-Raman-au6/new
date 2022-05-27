@@ -24,7 +24,7 @@ const Tasks = ({ offers }) => {
 
         <div className={`p-5 ${!state.user && `locked`}`} >
           
-            <div className="row row-cols-1 g-4 pb-5">
+            <div className="row row-cols-1 g-4 pb-5 offers">
                 {offers.data.slice(0, offerSize).map((task) => {
                     return (
                         <div className="col-lg-3" key={task.id}>

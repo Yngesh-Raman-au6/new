@@ -27,7 +27,6 @@ async function handler(req, res) {
             username: userName,
             email: email,
             password: password,
-            created: new Date(),
         });
 
         // send user back

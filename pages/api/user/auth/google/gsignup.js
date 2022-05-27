@@ -31,7 +31,6 @@ async function handler(req, res) {
             googleAuth: true,
             confirmed: true,
             photoUrl: photoUrl,
-            created: new Date(),
         });
 
         const refreshId = buildId(70);

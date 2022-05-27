@@ -43,7 +43,7 @@ const usersSchema = new mongoose.Schema({
     created: {
         type: String,
         required: true,
-        default: new Date(),
+        default: new Date().toLocaleDateString('pt-PT'),
     },
 })
 

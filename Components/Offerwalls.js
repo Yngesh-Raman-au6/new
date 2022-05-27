@@ -23,7 +23,7 @@ const Offerwalls = () => {
 
     return (
 
-        <div className="p-5">
+        <div className="p-5 offers">
 
             {/* Task Model */}
             <div className="modal fade" id="offerWallModel"
