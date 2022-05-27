@@ -38,7 +38,6 @@ export default function AuthModel({ }) {
 };
 
 export const SignUp = ({ closeBtnRef }) => {
-
     const [state, setState] = useContext(Context);
     const [signUpData, setSignUpData] = useState({email: '', password:'', verifyPassword: ''});
     const [isDisabled, setIsDisabled] = useState(true);
@@ -99,6 +98,7 @@ export const SignUp = ({ closeBtnRef }) => {
                 ['modelSignIn']: true,
                 ['accountCreatedSuccess']: true
             }));
+            closeBtnRef.current.click();
         }
         else {
             setIsLoading(false);

@@ -18,12 +18,16 @@ const Tasks = ({ offers }) => {
 
     }
 
-    const [offerSize, setOfferSize] = useState(12);
+    const [offerSize, setOfferSize] = useState(8);
 
     return (
 
-        <div className="p-5" style={{ zIndex: "1" }}>
-
+        <div className={`p-5 ${!state.user && `locked`}`} >
+            {!state.user &&
+                <div className="position-absolute top-50 start-50 translate-middle banner" style={{ zIndex: "10", opacity: '1' }}>
+                    <h1 className="text-white">Locked Content</h1>
+                </div>
+            }
             <div className="row row-cols-1 g-4 pb-5">
                 {offers.data.slice(0, offerSize).map((task) => {
                     return (

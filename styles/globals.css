@@ -1,4 +1,4 @@
-a, li, .h1, h2, h3, h6, span {
+a, li, .h1, h2, h3,h5, h6, span {
     font-family: 'Poppins', sans-serif !important;
     color: lightslategray !important;
 }
@@ -18,11 +18,23 @@ a, li, .h1, h2, h3, h6, span {
     background-color: rgb(33, 34, 54, 0.9);
 }
 
-
-
-.btn-lightgray {
-    background-color: #33334C !important;
+.locked {
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0.6;
+    /* Add the blur effect */
+    filter: blur(2.5px);
+    -webkit-filter: blur(2.5px);
 }
+
+    .locked .banner {
+        filter: blur(0px);
+        -webkit-filter: blur(0px);
+    }
+
+    .btn-lightgray {
+        background-color: #33334C !important;
+    }
 
 
 a .navicon {

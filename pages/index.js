@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import Navbar from '../Components/Navbar'
+import Footer from '../Components/Footer'
 import OfferWalls from '../Components/Offerwalls'
 import Tasks from '../Components/Tasks'
 import AuthModel from '../Components/AuthModel'
@@ -90,10 +91,21 @@ export default function Home({ authData, offers }) {
 
                 <h2 className="pt-3 px-5 fw-bold text-bright">Tasks</h2>
                 <h6 className="text-white pt-2 px-5 fw-bold">Complete any of the task below to earn coins ( 1000 Coins equals to $1 )</h6>
+                {!state.user &&
+                    <div className="container pt-5 px-5">
+                        <div className="alert alert-warning text-center" role="alert">
+                        <h4 className="alert-heading fs-5">Please <strong>login</strong> to view the content below </h4>
+                            <small>Due to security reasons you are not allowed to view the content below without login.
+                                This section will be locked and is only available to valid logged in user.</small>
+                        </div>
+
+                    </div>
+                }
                 <Tasks offers={offers} />
 
 
             </div>
+            <Footer />
         </>
             )
 }
