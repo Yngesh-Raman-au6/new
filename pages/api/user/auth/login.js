@@ -31,7 +31,7 @@ export default async function handler(req, res) {
     };
 
     if (!userData.confirmed) {
-        return res.status(200).send({ success: false, authorization: false, response: "Please verify your account to login" })
+        return res.status(200).send({ success: false, authorization: false, response: "Please confirm your account to login" })
     }
 
 

@@ -98,7 +98,6 @@ export const SignUp = ({ closeBtnRef }) => {
                 ['modelSignIn']: true,
                 ['accountCreatedSuccess']: true
             }));
-            closeBtnRef.current.click();
         }
         else {
             setIsLoading(false);
@@ -179,11 +178,15 @@ export const SignUp = ({ closeBtnRef }) => {
                         <div className="col-8 col-lg-6 mt-3 mt-lg-0">
                             <div className="input-group mb-3">
                                 <input type="text"
-                                    className="form-control fs-5 p-0 text-center" value={inputCode}
+                                    className="form-control border-0 fs-5 p-0 text-center" value={inputCode}
                                     onChange={(e) => setInputCode(e.target.value)} disabled={isVerified} maxLength="4" />
                             <span className="input-group-text p-0" id="basic-addon2">
-                                    <button className={`btn btn-outline rounded-0 rounded-end ${isVerified && `text-success`}`}
-                                        onClick={handleCaptcha} disabled={isVerified}>{!isVerified ? `Verify` : `Verified`}</button>
+
+
+                                    <motion.button
+                                        whileHover={{ scale: 1.03 }}
+                                        whileTap={{ scale: 0.98 }} className={`btn border-0 btn-dark text-white rounded-0 fs-6 rounded-end ${isVerified && `text-success`}`}
+                                        onClick={handleCaptcha} disabled={isVerified}>{!isVerified ? `Verify` : `Verified`}        </motion.button>
                                 </span>
                             </div>
 
