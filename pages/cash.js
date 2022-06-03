@@ -3,7 +3,7 @@ import Navbar from '../Components/Navbar';
 import AuthModel from '../Components/AuthModel';
 import AddAccount from '../Components/payments/AddVpa';
 import { Context } from '../context/Store'
-import TransferFund from '../Components/TransferFund';
+import TransferFund from '../Components/payments/TransferFund';
 import { useRouter } from 'next/router';
 
 
