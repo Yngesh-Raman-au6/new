@@ -90,7 +90,7 @@ export default function Profile() {
                     <div className="col-lg-6">
                         <div className="card border-0 mb-4">
                             <div className="card-body bg-dark  text-center ">
-                                <img src={!state.user.photoUrl? `https://plusvalleyadventure.com/wp-content/uploads/2020/11/default-user-icon-8.jpg` : state.user.photoUrl}
+                                <img src={!state.user.photoUrl ? `https://plusvalleyadventure.com/wp-content/uploads/2020/11/default-user-icon-8.jpg` : state.user.photoUrl}
                                     alt="avatar"
                                     className="rounded-circle img-fluid" style={{ width: "80px" }} />
                                 <div className="d-flex py-3 justify-content-center mb-2">
@@ -99,12 +99,12 @@ export default function Profile() {
                                 <p className="text-white mb-1">
                                     Completed Offers : <strong className="text-bright">0</strong></p>
                                 <p className="text-white mb-1">
-                                    Coins Earned : <strong className="text-bright">{ state.user.coins}</strong></p>
-                                   
-          </div>
+                                    Coins Earned : <strong className="text-bright">{state.user.coins}</strong></p>
+
                             </div>
-                            <div className="card border-0 mb-4 mb-lg-0">
-                                <div className="card-body p-0">
+                        </div>
+                        <div className="card border-0 mb-4 mb-lg-0">
+                            <div className="card-body p-0">
                                 <ul className="list-group list-group-flush justify-content-start rounded-3">
                                     <li className="list-group-item blue p-3">
                                         <div className="row">
@@ -116,7 +116,7 @@ export default function Profile() {
                                             </div>
                                         </div>
 
-                                        </li>
+                                    </li>
                                     <li className="list-group-item lightgray p-3">
                                         <div className="row">
                                             <div className="col-6">
@@ -133,23 +133,25 @@ export default function Profile() {
                                     <li className="list-group-item blue  p-3">
                                         <div className="row">
                                             <div className="col-6">
-                                                <p className="mb-0">Verified</p>
+                                                <p className="mb-0">UPI Linked</p>
                                             </div>
                                             <div className="col-6">
-                                                <p className="mb-0 mx-3 text-bright float-end ">No</p>
+                                                {!state.user?.UpiAddress ?
+                                                    <p className="mb-0 mx-3 text-white float-end bg-danger px-2 rounded-1">No</p> :
+                                                    <p className="mb-0 mx-3 text-white float-end bg-success px-2 rounded-1">{state.user.UpiAddress}</p>}
                                             </div>
                                         </div>
-                                        </li>
+                                    </li>
                                     <li className="list-group-item lightgray p-3">
-                                            <div className="row">
-                                                <div className="col-6">
-                                                    <p className="mb-0">Date Joined:</p>
-                                                </div>
-                                                <div className="col-6">
-                                                <p className="mb-0 mx-3 text-bright float-end">{state.user.created}</p>
-                                                </div>
+                                        <div className="row">
+                                            <div className="col-6">
+                                                <p className="mb-0">Date Joined:</p>
                                             </div>
-                                        </li>
+                                            <div className="col-6">
+                                                <p className="mb-0 mx-3 text-bright float-end">{state.user.created}</p>
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li className="list-group-item blue p-3">
                                         <div className="row">
                                             <div className="col-6">
@@ -159,21 +161,21 @@ export default function Profile() {
                                                 <p className="mb-0 mx-3 text-bright float-end">{state.user.email}</p>
                                             </div>
                                         </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                                    </li>
+                                </ul>
                             </div>
                         </div>
+                    </div>
                     <div className="col-lg-6">
                         <Line className="card" data={data} />
                         <div className="row">
-                                                <div className="col-md-12 mt-5">
-                                                    <div className="card border-0 mb-4 mb-md-0">
+                            <div className="col-md-12 mt-5">
+                                <div className="card border-0 mb-4 mb-md-0">
                                     <div className="card-body bg-dark">
                                         <p className="text-default mt-4 mb-2 text-end">Change Display Name</p>
                                         <div className="input-group mb-3">
                                             <input type="text" className="border-top-0 border-start-0 px-5 fs-4 fw-normal form-control text-bright"
-                                                style={{ background: 'none'}}
+                                                style={{ background: 'none' }}
                                                 placeholder="Enter a username"
                                                 value={username}
                                                 maxLength="7"
@@ -203,21 +205,21 @@ export default function Profile() {
                                                                     <span className="visually-hidden">Loading...</span>
                                                                 </div>) : `Delete`
                                                                 }
-                                                                </button>
-                                                        <button type="button" className="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Close</button>
-                                                    </div>
+                                                            </button>
+                                                            <button type="button" className="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Close</button>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                               
-                                            </div>
-      </div>
-    </div>
+                                    </div>
                                 </div>
-</section>
-        )
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    )
 }

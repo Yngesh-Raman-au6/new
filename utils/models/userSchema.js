@@ -30,7 +30,11 @@ const usersSchema = new mongoose.Schema({
         type: String,
         default: null
     },
-    bankAccountId: {
+    UpiAddress: {
+        type: String,
+        default: null
+    },
+    fundId: {
         type: String,
         default: null
     },

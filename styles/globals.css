@@ -52,6 +52,18 @@ a .navicon {
     transition: 0.5s ease-out;
 }
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 a:hover .navicon {
     -webkit-transform: rotateZ(360deg);
     -moz-transform: rotateZ(360deg);
@@ -66,7 +78,7 @@ a:hover .navicon {
         opacity: 0.5;
     }
 
-.card-body{
+.offers .card-body{
     background-color: rgb(34,35,57, 0.8) !important;
 }
 
@@ -85,6 +97,8 @@ a:hover .navicon {
 .active {
     color: lightgreen !important;
 }
+
+
 
 .pointer{
     cursor: pointer !important;

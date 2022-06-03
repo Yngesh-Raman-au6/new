@@ -48,7 +48,7 @@ const Navbar = () => {
                         </li>
 
                         <li className="nav-item px-lg-3">
-                            <Link href={!state.user ? '/' : '/cash'} passHref>
+                            <Link href={!state.user ? '/' : '/cashout'} passHref>
                                 <a className="nav-link  fw-semibold" href="#">
                                     <LocalAtmIcon className="navicon" fontSize="large" /> Cashout</a>
                             </Link>

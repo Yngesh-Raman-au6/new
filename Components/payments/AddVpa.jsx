@@ -1,16 +1,16 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Context } from '../context/Store'
+import { Context } from '../../context/Store'
 import axios from 'axios';
 
-export default function AddAccount() {
+export default function AddVpa() {
     const [state, setState] = useContext(Context);
     const [isDisabled, setisDisabled] = useState(true);
     const [isLoading, setisLoading] = useState(false);
-    const [formData, setformData] = useState({ name: '', phone: '', accNo: '', ifsc: '', confirmAccNo: '' });
+    const [formData, setformData] = useState({ name: '', phone: '', address: '', confirmaddress: '' });
 
 
     useEffect(() => {
-        if (formData.accNo === formData.confirmAccNo & formData.accNo.length != 0) {
+        if (formData.address === formData.confirmaddress & formData.address.length != 0) {
             setisDisabled(false);
         }
         else {
@@ -24,8 +24,8 @@ export default function AddAccount() {
         return res.data;
     };
 
-    const setBankAccount = async (payload) => {
-        const res = await axios.post('/api/payment/setbank', payload);
+    const setVpaAddress = async (payload) => {
+        const res = await axios.post('/api/payment/setvpa', payload);
         return res.data;
     };
 
@@ -47,13 +47,11 @@ export default function AddAccount() {
 
             const payload_fund = {
                 "id": state.user._id,
-                "name": formData.name,
                 "contact_id": res_contact.id,
-                "ifsc": formData.ifsc,
-                "account_number": formData.accNo,
+                "address": formData.address,
             }
 
-            const res_account = await setBankAccount(payload_fund);
+            const res_account = await setVpaAddress(payload_fund);
             if (res_account.success) {
                 setState(prevState => ({
                     ...prevState,
@@ -67,14 +65,14 @@ export default function AddAccount() {
     };
 
     return (
-        <div className='col-md-6 bg-light p-4 rounded-3 mb-5'>
+        <div className='col-md-6 bg-light shadow p-4 rounded-3 mb-5'>
             <form className='mx-4 mb-5' onSubmit={handleSubmit}>
                 <h4 className="mb-3">Fill out the details</h4>
                 <div className="mb-3">
                     <label htmlFor="name" className="form-label">Name</label>
                     <input type="name" className="form-control" maxLength="70" id="name" aria-describedby="nameHelp"
                         value={formData.name} onChange={(e) => {
-                            setformData({ name: e.target.value, phone: formData.phone, accNo: formData.accNo, ifsc: formData.ifsc, confirmAccNo: formData.confirmAccNo })
+                            setformData({ name: e.target.value, phone: formData.phone, address: formData.address, ifsc: formData.ifsc, confirmaddress: formData.confirmaddress })
                         }} />
                     <div id="nameHelp" className="form-text">This should match with your bank account</div>
                 </div>
@@ -82,29 +80,23 @@ export default function AddAccount() {
                     <label htmlFor="phone" className="form-label">Phone</label>
                     <input type="text" pattern="\d*" maxLength={10} className="form-control" id="phone"
                         value={formData.phone} onChange={(e) => {
-                            setformData({ name: formData.name, phone: e.target.value, accNo: formData.accNo, ifsc: formData.ifsc, confirmAccNo: formData.confirmAccNo })
+                            setformData({ name: formData.name, phone: e.target.value, address: formData.address, ifsc: formData.ifsc, confirmaddress: formData.confirmaddress })
                         }} />
                 </div>
 
                 <div className="mb-3">
-                    <label htmlFor="bankacc" className="form-label">Bank Account Number</label>
-                    <input type="number" className="form-control" id="bankacc"
-                        value={formData.accNo} onChange={(e) => {
-                            setformData({ name: formData.name, phone: formData.phone, accNo: e.target.value, ifsc: formData.ifsc, confirmAccNo: formData.confirmAccNo })
+                    <label htmlFor="address" className="form-label">UPI Address</label>
+                    <input type="text" maxLength={60} className="form-control" id="address"
+                        value={formData.address} onChange={(e) => {
+                            setformData({ name: formData.name, phone: formData.phone, address: e.target.value, ifsc: formData.ifsc, confirmaddress: formData.confirmaddress })
                         }} />
                 </div>
+
                 <div className="mb-3">
-                    <label htmlFor="ifsc" className="form-label">IFSC</label>
-                    <input type="text" className="form-control" id="ifsc"
-                        value={formData.ifsc} onChange={(e) => {
-                            setformData({ name: formData.name, phone: formData.phone, accNo: formData.accNo, ifsc: e.target.value, confirmAccNo: formData.confirmAccNo })
-                        }} />
-                </div>
-                <div className="mb-3">
-                    <label htmlFor="bankaccConfirm" className="form-label">Confirm Account Number</label>
-                    <input type="password" className="form-control" id="bankaccConfirm" aria-describedby="accountHelp"
-                        value={formData.confirmAccNo} onChange={(e) => {
-                            setformData({ name: formData.name, phone: formData.phone, accNo: formData.accNo, ifsc: formData.ifsc, confirmAccNo: e.target.value })
+                    <label htmlFor="bankaccConfirm" className="form-label">Confirm UPI Address</label>
+                    <input type="text" maxLength={60} className="form-control" id="bankaccConfirm" aria-describedby="accountHelp"
+                        value={formData.confirmaddress} onChange={(e) => {
+                            setformData({ name: formData.name, phone: formData.phone, address: formData.address, ifsc: formData.ifsc, confirmaddress: e.target.value })
                         }} />
                     <div id="accountHelp" className="form-text">Please recheck your details since this cannot be changed later</div>
                 </div>

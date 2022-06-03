@@ -9,29 +9,28 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         return res.status(500).json({ message: 'Soory this is post route' })
     }
-    console.log('setting bank account')
-    var { name, contact_id, id, ifsc, account_number } = req.body;
+
+    var { contact_id, id, address } = req.body;
 
     var raw = JSON.stringify({
+        "account_type": "vpa",
         "contact_id": contact_id,
-        "account_type": "bank_account",
-        "bank_account": {
-            "name": name,
-            "ifsc": ifsc,
-            "account_number": account_number
+        "vpa": {
+            "address": address
         }
     });
 
     // create new contact
     const response = await postRazorPay('/fund_accounts', raw)
-    console.log(response['id']);
+    if (response['id'] === undefined) return res.json({ success: false, message: "Something went wrong" });
 
     try {
         const userData = await userSchema.findOne({
             _id: id
         });
 
-        userData.bankAccountId = response['id'];
+        userData.fundId = response['id'];
+        userData.UpiAddress = address;
         await userData.save();
 
         return res.json({ success: true, user: userData, id: response['id'] });
