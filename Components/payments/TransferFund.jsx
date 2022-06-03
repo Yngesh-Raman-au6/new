@@ -17,7 +17,7 @@ export default function TransferFund() {
                 <div>
                     <div className="d-flex pt-2 pl-3">
                         <div className="mt-3 pl-2 my-3">
-                            <div><img src="https://img.icons8.com/ios-filled/50/000000/visa.png" width="60" height="80" /></div>
+                            <div><img src="https://img.icons8.com/fluency/48/undefined/bhim.png" className='my-2' /></div>
                             <div className=''>
                                 <span className="name "><small>{state.user?.UpiAddress}</small></span>
                             </div>
