@@ -1,13 +1,11 @@
 import dbConnect from '../../../../utils/dbConnect';
 import userSchema from '../../../../utils/models/userSchema'
-import { signJWT, verifyJWT } from '../../../../utils/jwt';
-import { setCookies, removeCookies } from 'cookies-next';
 
 dbConnect();
 
 async function handler(req, res) {
 
-    removeCookies('refreshToken', { req, res});
+    removeCookies('refreshToken', { req, res });
 
     if (req.method !== 'POST') {
         return res.status(500).json({ message: 'Soory this is post route' })
@@ -29,8 +27,6 @@ async function handler(req, res) {
     catch (err) {
         return res.json({ success: false, message: "Cannot verify your identity", authorization: false });
     }
-
-    return res.json({ success: false, message: "Cannot verify your identity", authorization: false });
 
 }
 

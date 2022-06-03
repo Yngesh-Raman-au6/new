@@ -26,6 +26,14 @@ const usersSchema = new mongoose.Schema({
         type: String,
         default: null
     },
+    contactId: {
+        type: String,
+        default: null
+    },
+    bankAccountId: {
+        type: String,
+        default: null
+    },
     confirmed: {
         type: Boolean,
         required: true,

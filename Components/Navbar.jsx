@@ -42,14 +42,16 @@ const Navbar = () => {
 
                         <li className="nav-item px-lg-3">
                             <Link href="/" passHref>
-                            <a className="nav-link active fw-semibold" aria-current="page" href="#">
+                                <a className="nav-link active fw-semibold" aria-current="page" href="#">
                                     <RecommendIcon className="navicon" fontSize="large" /> Earn</a>
                             </Link>
                         </li>
 
                         <li className="nav-item px-lg-3">
-                            <a className="nav-link  fw-semibold" href="#">
-                                <LocalAtmIcon className="navicon" fontSize="large" /> Cashout</a>
+                            <Link href={!state.user ? '/' : '/cash'} passHref>
+                                <a className="nav-link  fw-semibold" href="#">
+                                    <LocalAtmIcon className="navicon" fontSize="large" /> Cashout</a>
+                            </Link>
                         </li>
 
                         <li className="nav-item px-lg-3">
@@ -65,41 +67,41 @@ const Navbar = () => {
                         animate={{ opacity: 1 }}
                         transition={{ delay: 0, duration: 0.7 }}
                     >
-                    <button className="btn mx-3 btn-lightgray border-0 fw-semibold fs-6 text-white"
-                        data-bs-toggle="modal" data-bs-target="#authModel"
-                        onClick={
-                            () =>
-                        setState(prevState => ({
-                        ...prevState,
-                        ['modelSignIn']: true,
-                        }))
-                        }
-                    >
-                        <a href="#" tabIndex="-1" className="btn px-1 mb-1 border-0 disabled text-light"
-                            aria-hidden="true">
-                            <PersonOutlineOutlinedIcon fontSize="small" />
-                        </a>  Sign in
-                    </button>
+                        <button className="btn mx-3 btn-lightgray border-0 fw-semibold fs-6 text-white"
+                            data-bs-toggle="modal" data-bs-target="#authModel"
+                            onClick={
+                                () =>
+                                    setState(prevState => ({
+                                        ...prevState,
+                                        ['modelSignIn']: true,
+                                    }))
+                            }
+                        >
+                            <a href="#" tabIndex="-1" className="btn px-1 mb-1 border-0 disabled text-light"
+                                aria-hidden="true">
+                                <PersonOutlineOutlinedIcon fontSize="small" />
+                            </a>  Sign in
+                        </button>
 
-                    <button className="btn mx-3 btn-success border-0 fw-semibold fs-6 text-white"
-                        data-bs-toggle="modal" data-bs-target="#authModel" onClick={() =>
-                            setState(prevState => ({
-                                ...prevState,
-                                ['modelSignIn']: false,
-                            }))}>
-                        <a href="#" tabIndex="-1" className="btn btn-success px-1 mb-1 border-0 disabled text-light"
-                            aria-hidden="true">
-                            <VpnKeyIcon fontSize="small" />
-                        </a>  Sign up
+                        <button className="btn mx-3 btn-success border-0 fw-semibold fs-6 text-white"
+                            data-bs-toggle="modal" data-bs-target="#authModel" onClick={() =>
+                                setState(prevState => ({
+                                    ...prevState,
+                                    ['modelSignIn']: false,
+                                }))}>
+                            <a href="#" tabIndex="-1" className="btn btn-success px-1 mb-1 border-0 disabled text-light"
+                                aria-hidden="true">
+                                <VpnKeyIcon fontSize="small" />
+                            </a>  Sign up
                         </button>
                     </motion.div>
 
-                    {state.user && ( 
+                    {state.user && (
                         <form className="d-flex" role="search">
                             <div className="dropdown">
                                 <button className="btn btn-lightgray border-0 fs-7 dropdown-toggle fw-semibold text-white"
                                     stype="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false"
-                                
+
                                 >
                                     <a href="#" tabIndex="-1"
                                         className={`btn ${!state.user.photoUrl && `bg-danger`} border-0 px-3 disabled placeholder text-light text-uppercase`}
@@ -123,7 +125,7 @@ const Navbar = () => {
                                 </ul>
                             </div>
                         </form>
-                        )
+                    )
                     }
                 </div>
             </div>

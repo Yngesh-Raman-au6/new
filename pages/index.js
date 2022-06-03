@@ -8,7 +8,7 @@ import Carousel from '../Components/Carousel';
 import axios from 'axios'
 import { removeCookies } from 'cookies-next';
 import { Context } from '../context/Store'
-import React,{ useContext, useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import authorize from '../lib/authorize'
 import buildId from 'build-id'
 import ReCAPTCHA from "react-google-recaptcha";
@@ -28,7 +28,7 @@ export async function getServerSideProps({ req, res }) {
             authData: authData.data,
             offers: OffersRes.data
         }
-}
+    }
 }
 
 export default function Home({ authData, offers }) {
@@ -59,7 +59,7 @@ export default function Home({ authData, offers }) {
 
     }, [])
 
-       
+
     return (
         <>
             <Head>
@@ -67,20 +67,21 @@ export default function Home({ authData, offers }) {
             </Head>
 
             <div className="fixed-top">
-            <Navbar />
+                <Navbar />
                 <Carousel />
             </div>
 
             {/* Modal */}
             <AuthModel />
+
             <div style={{ zIndex: "6", position: "absolute" }}>
-            <ReCAPTCHA
-                ref={recaptchaRef}
-                size="invisible"
-                sitekey="6Ld5zh8gAAAAAAsDOB4gBjcOn3xekyoS6AvupPwb"
-                onChange={onReCAPTCHAChange}
+                <ReCAPTCHA
+                    ref={recaptchaRef}
+                    size="invisible"
+                    sitekey="6Ld5zh8gAAAAAAsDOB4gBjcOn3xekyoS6AvupPwb"
+                    onChange={onReCAPTCHAChange}
                 />
-                </div>
+            </div>
 
             <div className="bg-dark mt-lg-5" style={{ paddingTop: '13vh' }}>
 
@@ -93,7 +94,7 @@ export default function Home({ authData, offers }) {
                 {!state.user &&
                     <div className="container pt-5 px-5">
                         <div className="alert alert-warning text-center" role="alert">
-                        <h4 className="alert-heading fs-5">Please <strong>login</strong> to view the content below </h4>
+                            <h4 className="alert-heading fs-5">Please <strong>login</strong> to view the content below </h4>
                             <small>Due to security reasons you are not allowed to view the content below without login.
                                 This section will be locked and is only available to valid logged in user.</small>
                         </div>
@@ -106,5 +107,5 @@ export default function Home({ authData, offers }) {
             </div>
             <Footer />
         </>
-            )
+    )
 }
