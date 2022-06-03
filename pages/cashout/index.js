@@ -40,7 +40,7 @@ export default function CashOut() {
                                     <h5 className="text-dark fw-bold"> UPI Transfer</h5>
                                 </div>
                                 <div className="card-body my-0">
-                                    <Image src="/utils/upi.png" height={65} width={75}  priority/>
+                                    <Image src="/utils/upi.png" height={65} width={75} priority />
                                     <p className="card-text">
                                         Receive money directly on your vpa address
 

@@ -24,7 +24,7 @@ export default function VpaTransfer() {
             {/* Modal */}
             <AuthModel />
 
-            <div className='container-fluid d-flex justify-content-center bg-dark py-lg-3'>
+            <div className='container-fluid d-flex justify-content-center bg-dark'>
                 {!state.user?.fundId ?
                     <AddVpa /> : <TransferFund />}
             </div>
