@@ -1,4 +1,4 @@
-### [Production Preview](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
+### [Production Preview](https://lucky-offer.vercel.app)
 
 ## Getting Started
 
