@@ -7,7 +7,7 @@ export default async function handler(req, res) {
 
     if (req.method !== 'POST') {
         return res.status(500).json({ message: 'Soory this is post route' })
-    }
+    };
 
     const { user_id, point_value } = req.query;
 
@@ -25,5 +25,5 @@ export default async function handler(req, res) {
     userData.coins = prevCoins + parseInt(point_value);
     await userData.save();
 
-    res.status(200).json(req.query)
+    res.status(200).json(req.query);
 }

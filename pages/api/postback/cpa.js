@@ -9,8 +9,6 @@ export default async function handler(req, res) {
         return res.status(500).json({ message: 'Soory this is post route' })
     }
 
-    console.log(req.body)
-
     const { subid, payout } = req.query;
 
     // get user data

@@ -1,6 +1,6 @@
 export default async function postRazorPay(path, payload) {
-    var username = 'rzp_test_3RNO79d7uTBIjD';
-    var password = 'O5St3gFxMgARg4bnTcNbrY1g'
+    var username = process.env.RAZORPAY_KEY;
+    var password = process.env.RAZORPAY_SECRET;
 
     const token = `${username}:${password}`;
     const encodedToken = Buffer.from(token).toString('base64');

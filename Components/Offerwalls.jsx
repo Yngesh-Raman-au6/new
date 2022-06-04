@@ -8,7 +8,7 @@ const Offerwalls = () => {
 
     useEffect(() => {
         window.open(state.offerUrl, "theFrame");
-    },[])
+    }, [])
 
     const openTab = async (url, offerwallTitle) => {
 
@@ -38,10 +38,10 @@ const Offerwalls = () => {
                                 </a>
                             </h5>
                             <button type="button" className="btn-close bg-light"
-                                data-bs-dismiss="modal" aria-label="Close" onClick={() => openTab( '/loading','Lucky Offer')}></button>
+                                data-bs-dismiss="modal" aria-label="Close" onClick={() => openTab('/loading', 'Lucky Offer')}></button>
                         </div>
                         <iframe className={`modal-body mx-auto px-0 py-0 `} name="theFrame"
-                            height="570" width="100%"  />
+                            height="570" width="100%" />
 
                     </div>
                 </div>
@@ -50,7 +50,7 @@ const Offerwalls = () => {
             <div className="row row-cols-1 g-4 pb-5">
 
                 <div className="col-lg-3">
-                    <a onClick={() => state.user && openTab(`https://wall.adgaterewards.com/oKuUpw/${state.user._id}`, 'Adgate Media')}
+                    <a onClick={() => state.user && openTab(`https://wall.adgaterewards.com/${process.env.NEXT_PUBLIC_ADGATE_ID}/${state.user._id}`, 'Adgate Media')}
                         className="card p-3 text-decoration-none" style={{ cursor: "pointer" }}
                         data-bs-toggle="modal" data-bs-target={state.user ? `#offerWallModel` : `#authModel`}>
 
@@ -70,8 +70,8 @@ const Offerwalls = () => {
 
                 </div>
                 <div className="col-lg-3">
-                    
-                    <a onClick={() => state.user && openTab(`https://fastrsrvr.com/list/471109?subid=${state.user._id}`, 'CPA Leads')}
+
+                    <a onClick={() => state.user && openTab(`https://fastrsrvr.com/list/${process.env.NEXT_PUBLIC_CPA_ID}?subid=${state.user._id}`, 'CPA Leads')}
                         data-bs-toggle="modal" data-bs-target={state.user ? `#offerWallModel` : `#authModel`}
                         className="card p-3 h-100 text-decoration-none pointer">
 

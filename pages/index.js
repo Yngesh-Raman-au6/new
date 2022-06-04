@@ -19,7 +19,7 @@ export async function getServerSideProps({ req, res }) {
     const authData = await authorize(req, res);
 
     // get offers
-    const offerUrl = `https://wall.adgaterewards.com/apiv1/vc/oKuUpw/users/${authData.data.user ? authData.data.user._id : buildId()}/offers?country_code=in`
+    const offerUrl = `https://wall.adgaterewards.com/apiv1/vc/${process.env.NEXT_PUBLIC_ADGATE_ID}/users/${authData.data.user ? authData.data.user._id : buildId()}/offers?country_code=in`
     const OffersRes = await axios.get(offerUrl);
 
     // return data to page
