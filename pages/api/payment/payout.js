@@ -24,15 +24,14 @@ export default async function handler(req, res) {
     var raw = JSON.stringify({
         "account_number": "2323230077504910",
         "fund_account_id": userData.fundId,
-        "amount": (parseFloat(amount) * 77) * 100,
+        "amount": parseFloat((parseFloat(((amount) * 77) * 100)).toFixed(2)),
         "currency": "INR",
         "mode": "UPI",
-        "purpose": "refund",
+        "purpose": "payout",
         "queue_if_low_balance": true,
         "reference_id": id,
         "narration": "LuckyOffer fund UPI Transfer",
     });
-
 
     // create new contact
     const response = await postRazorPay('/payouts', raw)

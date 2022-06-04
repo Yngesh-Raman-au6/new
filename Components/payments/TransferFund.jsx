@@ -6,6 +6,7 @@ import axios from 'axios';
 export default function TransferFund() {
     const [state, setState] = useContext(Context);
 
+    const [totalCashout, setTotalCashout] = useState(false);
     const [isSuccess, setisSuccess] = useState(null);
     const [isLoading, setisLoading] = useState(false);
     const [isDisabled, setisDisabled] = useState(true);
@@ -17,7 +18,9 @@ export default function TransferFund() {
         var int_balance = parseFloat(balance);
         var int_amount = parseFloat(amount);
 
-        console.log(int_balance)
+        if (totalCashout) {
+            setamount(balance);
+        }
 
         if (int_balance >= int_amount && int_amount >= 1) {
             setisDisabled(false);
@@ -25,7 +28,7 @@ export default function TransferFund() {
         else {
             setisDisabled(true);
         }
-    }, [amount])
+    }, [amount, totalCashout])
 
     const SuccessComponent = ({ message, type }) => {
         return (
@@ -88,7 +91,8 @@ export default function TransferFund() {
                         <div className="py-2  px-3">
                             <div className="first pl-2 d-flex py-2">
                                 <div className="form-check">
-                                    <input type="radio" name="optradio" className="form-check-input mt-3 dot" />
+                                    <input type="radio" name="optradio" className="form-check-input mt-3 dot"
+                                        onChange={() => setTotalCashout(true)} checked={totalCashout} />
                                 </div>
                                 <div className="border-left pl-2"><span className="head">Total balance amount</span>
                                     <div><span className="dollar fs-5">$ </span><span className="amount fs-5">{(state.user?.coins / 1000).toFixed(2)}</span></div></div>
@@ -100,14 +104,18 @@ export default function TransferFund() {
                         <div className="py-2 px-3">
                             <div className="second pl-2 d-flex col-md-8">
                                 <div className="form-check">
-                                    <input type="radio" name="optradio" className="form-check-input mt-3 dot" checked />
+                                    <input type="radio" name="optradio"
+                                        onChange={() => {
+                                            setamount('')
+                                            setTotalCashout(false)
+                                        }} className="form-check-input mt-3 dot" checked={!totalCashout} />
                                 </div>
                                 <div className="border-left pl-2">
                                     <span className="head">Other amount</span>
                                     <div className="d-flex"><span className="dollar fs-4 mx-1">$</span>
                                         <input type="number" name="text" className="form-control ml-1 fs-4 py-0 mt-1"
                                             placeholder="0"
-                                            value={amount}
+                                            value={totalCashout ? '' : amount}
                                             onChange={(e) => setamount(e.target.value)} />
                                     </div>
                                 </div>
